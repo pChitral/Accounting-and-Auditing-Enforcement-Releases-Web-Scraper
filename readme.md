@@ -22,6 +22,7 @@ The folder structure of the AAER Scraper project is as follows:
 - scraper/
   - __init__.py
   - aaer_scraper.py
+  - config_loader.py
 ```
 
 - `AAER_Data.csv` and `AAER_Data_2014_Onwards.csv`: Sample CSV files containing scraped data.
