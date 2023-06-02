@@ -1,2 +1,4 @@
-requests_cache
-
+beautifulsoup4
+pandas
+requests
+requests-cache
