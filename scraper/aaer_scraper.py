@@ -10,8 +10,6 @@ import concurrent.futures
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
-# Rest of the code...
-
 
 class AAERScraper:
     def __init__(self, page, config):
