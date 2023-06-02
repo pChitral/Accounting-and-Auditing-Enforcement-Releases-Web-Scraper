@@ -13,7 +13,7 @@ AAER Scraper is a Python application that allows you to scrape table data from a
 
 2. Install the required dependencies using pip:
 
-   ```shell
+   ```python
    pip install -r requirements.txt
    ```
 
@@ -21,14 +21,14 @@ AAER Scraper is a Python application that allows you to scrape table data from a
 
 1. Update the `config.ini` file:
 
-   The `config.ini` file contains the necessary configuration values for the Table Scraper. Update the following values as per your requirements:
+   The `config.ini` file contains the necessary configuration values for the AAER Scraper. Update the following values as per your requirements:
 
    - `base_url`: The base URL of the webpage to scrape.
    - Any other configuration values specific to your use case.
 
 2. Run the `main.py` script:
 
-   ```shell
+   ```python
    python main.py
    ```
 
