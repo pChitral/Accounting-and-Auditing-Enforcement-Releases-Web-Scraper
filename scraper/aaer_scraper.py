@@ -4,10 +4,13 @@ import pandas as pd
 from urllib.parse import urljoin
 import logging
 import requests_cache
-
+from concurrent.futures import ThreadPoolExecutor
+import concurrent.futures
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+
+# Rest of the code...
 
 
 class AAERScraper:
@@ -130,26 +133,50 @@ class AAERScraper:
         df = self.create_dataframe()
         return df
 
-    def handle_pagination(self, num_pages=1):
+    def handle_pagination(self, num_pages=1, max_workers=5):
         """
-        Handles scraping multiple pages of data and concatenates the results.
+        Handles scraping multiple pages of data and concatenates the results using concurrent requests.
 
         Args:
             num_pages (int, optional): The number of pages to scrape. Defaults to 1.
+            max_workers (int, optional): The maximum number of worker threads to use for concurrent requests.
+                                         Defaults to 5.
 
         Returns:
             pd.DataFrame: The DataFrame containing the concatenated data.
         """
         all_data = []  # List to store data from all pages
 
-        for page in range(self.page, self.page + num_pages):
-            self.page = page
-            self.url = self.construct_url()
-            self.fetch_html_content()
-            self.parse_html_content()
-            self.scrape_table_data()
-            # Append data from the current page to the overall data
-            all_data.extend(self.data)
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            future_to_page = {executor.submit(self.scrape_page, page): page for page in range(
+                self.page, self.page + num_pages)}
+            for future in concurrent.futures.as_completed(future_to_page):
+                page = future_to_page[future]
+                try:
+                    page_data = future.result()
+                    all_data.extend(page_data)
+                    logging.info(f"Scraped page {page} successfully.")
+                except Exception as e:
+                    logging.error(
+                        f"Error occurred while scraping page {page}: {e}")
 
         df = pd.DataFrame(all_data)
         return df
+
+    def scrape_page(self, page):
+        """
+        Scrapes a single page and returns the data as a list of dictionaries.
+
+        Args:
+            page (int): The page number to scrape.
+
+        Returns:
+            list: The scraped data as a list of dictionaries.
+        """
+        self.page = page
+        self.url = self.construct_url()
+        self.fetch_html_content()
+        self.parse_html_content()
+        self.data = []  # Clear the data list for each page
+        self.scrape_table_data()
+        return self.data
