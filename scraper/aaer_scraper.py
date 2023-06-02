@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 class AAERScraper:
     def __init__(self, page, config):
         """
-        Initializes the TableScraper class.
+        Initializes the AAERScraper class.
 
         Args:
             page (int): The page number to scrape.
@@ -128,4 +128,28 @@ class AAERScraper:
         self.parse_html_content()
         self.scrape_table_data()
         df = self.create_dataframe()
+        return df
+
+    def handle_pagination(self, num_pages=1):
+        """
+        Handles scraping multiple pages of data and concatenates the results.
+
+        Args:
+            num_pages (int, optional): The number of pages to scrape. Defaults to 1.
+
+        Returns:
+            pd.DataFrame: The DataFrame containing the concatenated data.
+        """
+        all_data = []  # List to store data from all pages
+
+        for page in range(self.page, self.page + num_pages):
+            self.page = page
+            self.url = self.construct_url()
+            self.fetch_html_content()
+            self.parse_html_content()
+            self.scrape_table_data()
+            # Append data from the current page to the overall data
+            all_data.extend(self.data)
+
+        df = pd.DataFrame(all_data)
         return df
