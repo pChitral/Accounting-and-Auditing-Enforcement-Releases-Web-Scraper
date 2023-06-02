@@ -1,7 +1,7 @@
 
-# Table Scraper
+# AAER Scraper
 
-Table Scraper is a Python application that allows you to scrape table data from a webpage and store it in a Pandas DataFrame. It utilizes the requests library for making HTTP requests, BeautifulSoup for HTML parsing, and Pandas for data manipulation.
+AAER Scraper is a Python application that allows you to scrape table data from a webpage and store it in a Pandas DataFrame. It utilizes the requests library for making HTTP requests, BeautifulSoup for HTML parsing, and Pandas for data manipulation.
 
 ## Installation
 

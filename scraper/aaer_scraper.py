@@ -10,7 +10,7 @@ import requests_cache
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
 
-class TableScraper:
+class AAERScraper:
     def __init__(self, page, config):
         """
         Initializes the TableScraper class.
