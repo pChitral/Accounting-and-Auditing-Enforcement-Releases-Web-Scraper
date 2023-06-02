@@ -32,7 +32,8 @@ class AAERScraper:
             str: The constructed URL.
         """
         params = {"page": self.page}
-        url = urljoin(self.base_url, "?".join([self.base_url, "&".join(f"{k}={v}" for k, v in params.items())]))
+        url = urljoin(self.base_url, "?".join(
+            [self.base_url, "&".join(f"{k}={v}" for k, v in params.items())]))
         return url
 
     def fetch_html_content(self):
@@ -82,11 +83,14 @@ class AAERScraper:
         respondents_element = row.select_one('.release-view__respondents')
         respondents = respondents_element.text.strip() if respondents_element else None
 
-        release_numbers_element = row.select_one('.view-table_subfield.view-table_subfield_release_number')
-        release_numbers = release_numbers_element.text.replace('Release No.', '').strip() if release_numbers_element else None
+        release_numbers_element = row.select_one(
+            '.view-table_subfield.view-table_subfield_release_number')
+        release_numbers = release_numbers_element.text.replace(
+            'Release No.', '').strip() if release_numbers_element else None
 
         link_element = respondents_element.find('a')
-        link = urljoin(self.base_url, link_element['href']) if link_element else None
+        link = urljoin(
+            self.base_url, link_element['href']) if link_element else None
 
         return {'Date': date, 'Respondents': respondents, 'Release Numbers': release_numbers, 'Link': link}
 
@@ -100,6 +104,17 @@ class AAERScraper:
         df = pd.DataFrame(self.data)
         return df
 
+    def save_to_csv(self, filename):
+        """
+        Saves the scraped data to a CSV file.
+
+        Args:
+            filename (str): The name of the CSV file to save.
+        """
+        df = self.scrape_and_get_dataframe()
+        df.to_csv(filename, index=False)
+        logging.info(f"Data saved to {filename} successfully.")
+
     def scrape_and_get_dataframe(self):
         """
         Performs the entire scraping process and returns the DataFrame.
@@ -107,7 +122,8 @@ class AAERScraper:
         Returns:
             pd.DataFrame: The DataFrame containing the scraped data.
         """
-        self.session = requests_cache.CachedSession(backend='memory', expire_after=3600)
+        self.session = requests_cache.CachedSession(
+            backend='memory', expire_after=3600)
         self.fetch_html_content()
         self.parse_html_content()
         self.scrape_table_data()
