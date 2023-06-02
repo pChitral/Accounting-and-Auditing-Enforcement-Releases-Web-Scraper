@@ -8,7 +8,7 @@ Table Scraper is a Python application that allows you to scrape table data from 
 1. Clone the repository:
 
    ```shell
-   git clone https://github.com/your-username/table-scraper.git
+   git clone https://github.com/pChitral/Accounting-and-Auditing-Enforcement-Releases-Web-Scraper.git
    ```
 
 2. Install the required dependencies using pip:
