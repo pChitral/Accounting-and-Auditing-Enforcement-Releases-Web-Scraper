@@ -6,8 +6,6 @@ Certainly! Here's the updated folder structure section of the README.md file:
 
 ## Folder Structure
 
-The folder structure of the AAER Scraper project is as follows:
-
 ```
 - AAER_Data.csv
 - AAER_Data_2014_Onwards.csv
@@ -25,6 +23,8 @@ The folder structure of the AAER Scraper project is as follows:
   - config_loader.py
 ```
 
+Here's a brief description of each file and directory:
+
 - `AAER_Data.csv` and `AAER_Data_2014_Onwards.csv`: Sample CSV files containing scraped data.
 - `AAER_Scraper.ipynb`: Jupyter Notebook containing an example usage of the AAER Scraper.
 - `CODE_OF_CONDUCT`: Community code of conduct guidelines.
@@ -34,7 +34,10 @@ The folder structure of the AAER Scraper project is as follows:
 - `http_cache.sqlite`: SQLite database file used for caching HTTP requests.
 - `main.py`: Python script for running the AAER Scraper.
 - `requirements.txt`: File specifying the required dependencies for the AAER Scraper.
-- `scraper/`: Directory containing the source code for the AAER Scraper.
+- `scraper/`: Directory containing the source code for the AAER Scraper. It includes the following files:
+  - `__init__.py`: An empty file indicating that the directory is a Python package.
+  - `aaer_scraper.py`: Python module containing the main implementation of the AAER Scraper.
+  - `config_loader.py`: Python module for loading the configuration values from `config.ini`.
 
 Please note that this is just a sample folder structure and may vary based on your specific implementation or usage requirements.
 
@@ -50,7 +53,7 @@ This updated section provides a more detailed description of each file and direc
 
 2. Install the required dependencies using pip:
 
-   ```shell
+   ```python
    pip install -r requirements.txt
    ```
 
