@@ -102,8 +102,8 @@ class AAERScraper:
         Returns:
             pd.DataFrame: The DataFrame containing the scraped data.
         """
-        df = pd.DataFrame(self.data)
-        return df
+        self.df = pd.DataFrame(self.data)
+        return self.df
 
     def save_to_csv(self, filename):
         """
